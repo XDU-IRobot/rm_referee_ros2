@@ -17,7 +17,7 @@ RefereeNode::RefereeNode(const rclcpp::NodeOptions &options) : rclcpp::Node("ref
                 param_normal_tty_device_.c_str());
     SerialInit(param_normal_tty_device_, normal_serial_);
     normal_serial_rx_thread_ = std::thread([this] {
-      for (;;) {
+      while (!stop_threads_) {
         const auto data = normal_serial_->read();
         for (auto byte : data) {
           normal_referee_ << byte;
@@ -37,7 +37,7 @@ RefereeNode::RefereeNode(const rclcpp::NodeOptions &options) : rclcpp::Node("ref
     }
 
     vt_serial_rx_thread_ = std::thread([this] {
-      for (;;) {
+      while (!stop_threads_) {
         const auto data = vt_serial_->read();
         for (auto byte : data) {
           vt_referee_ << byte;
@@ -74,11 +74,23 @@ RefereeNode::RefereeNode(const rclcpp::NodeOptions &options) : rclcpp::Node("ref
 }
 
 RefereeNode::~RefereeNode() {
+  // 设置停止标志
+  stop_threads_ = true;
+
+  // 关闭串口以中断阻塞的读操作
   if (param_enable_normal_) {
     normal_serial_->close();
   }
   if (param_enable_vt_) {
     vt_serial_->close();
+  }
+
+  // 等待线程结束
+  if (normal_serial_rx_thread_.joinable()) {
+    normal_serial_rx_thread_.join();
+  }
+  if (vt_serial_rx_thread_.joinable()) {
+    vt_serial_rx_thread_.join();
   }
 }
 

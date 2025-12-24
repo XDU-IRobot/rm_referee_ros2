@@ -4,6 +4,7 @@
 #include <rclcpp/rclcpp.hpp>
 
 #include <librm.hpp>
+#include <atomic>
 
 #include <rm_referee_msgs/msg/custom_robot_data.hpp>
 #include <rm_referee_msgs/msg/remote_control.hpp>
@@ -65,6 +66,7 @@ class RefereeNode : public rclcpp::Node {
   /** <Threads> **/
   std::thread normal_serial_rx_thread_;
   std::thread vt_serial_rx_thread_;
+  std::atomic<bool> stop_threads_{false};
   /** </Threads> **/
   /** <Decoders> **/
   rm::device::Referee<rm::device::RefereeRevision::kV170> normal_referee_;
