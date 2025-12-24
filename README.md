@@ -57,15 +57,9 @@ git clone --recursive https://github.com/XDU-IRobot/rm_referee_ros2.git
 sudo apt install libboost-all-dev
 ```
 
-3. 设置`referee_node/config/settings.yaml`里的配置项，然后编译、启动节点：
+3. 复制一份`rm_referee/launch/referee_node.launch.py`到你自己的项目里，按需修改里面的参数，然后运行即可。
 
-```bash
-colcon build --symlink-install
-source install/setup.bash
-ros2 launch rm_referee referee_node.launch.py
-```
-
-裁判系统通过串口发送的数据会被封装成消息发布到对应话题上，反之可以通过请求`/rm_referee/tx`服务向裁判系统发送数据。
+裁判系统通过串口发送的数据会被封装成消息发布到对应话题上，反之可以通过请求`/rm_referee/tx`服务向裁判系统串口发送数据。
 
 ## 话题列表
 
