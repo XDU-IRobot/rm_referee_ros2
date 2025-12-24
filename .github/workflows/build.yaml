@@ -30,4 +30,6 @@ jobs:
           token: ${{ secrets.CI }}
       - name: Build
         shell: bash
-        run: source /opt/ros/${{ matrix.ros_distro }}/setup.sh;colcon build --cmake-args -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
+        run: |
+          source /opt/ros/${{ matrix.ros_distro }}/setup.sh
+          colcon build --cmake-args -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}

@@ -1,20 +1,20 @@
-name: lint
+name: clang-format Check
 
-on: [push, pull_request]
+on: [ push, pull_request ]
 
 jobs:
   run-linters:
     name: Run linters
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Install ClangFormat
-        run: sudo apt-get install -y clang-format
-
-      - name: Run linters
-        uses: wearerequired/lint-action@v2
+      - name: Check out Git repository
+        uses: actions/checkout@v4
         with:
-          clang_format: true
-          auto_fix: true
+          ref: ${{ github.head_ref }}
+      - uses: DoozyX/clang-format-lint-action@v0.18.1
+        with:
+          source: '.'
+          inplace: True
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Fix code style issues with clang-format

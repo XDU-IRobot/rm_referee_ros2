@@ -1,7 +1,0 @@
-referee_node:
-  ros__parameters:
-    enable_normal: true # 启用常规链路
-    enable_fpv: true # 启用图传链路
-    new_vt: true # 是否是新图传，决定图传链路的波特率
-    normal_tty_device: "/dev/ttyTHS1"
-    fpv_tty_device: "/dev/ttyTHS0"
