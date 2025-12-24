@@ -1,4 +1,4 @@
-[submodule "referee_node/libs/librm"]
-	path = referee_node/libs/librm
+[submodule "rm_referee/libs/librm"]
+	path = rm_referee/libs/librm
 	url = https://github.com/XDU-IRobot/librm.git
 	branch = develop

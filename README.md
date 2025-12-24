@@ -10,6 +10,39 @@ RoboMaster 裁判系统的 ROS2 驱动，用于简化 ROS2 下和裁判系统的
 
 `main`分支为最新开发版本，可能包含不稳定的改动。
 
+## Build status
+
+<table>
+<tr>
+<td>foxy</td>
+<td rowspan=2>
+    <a href="https://github.com/XDU-IRobot/rm_referee_ros2/actions/workflows/build.yaml">
+        <img src="https://github.com/XDU-IRobot/rm_referee_ros2/actions/workflows/build.yaml/badge.svg">
+    </a>
+</td>
+</tr>
+<tr>
+<td>galactic</td>
+</tr>
+<tr>
+<td>humble</td>
+<td rowspan=4>
+    <a href="https://github.com/XDU-IRobot/rm_referee_ros2/actions/workflows/build_eol.yaml">
+        <img src="https://github.com/XDU-IRobot/rm_referee_ros2/actions/workflows/build_eol.yaml/badge.svg">
+    </a>
+</td>
+</tr>
+<tr>
+<td>iron</td>
+</tr>
+<tr>
+<td>jazzy</td>
+</tr>
+<tr>
+<td>rolling</td>
+</tr>
+</table>
+
 ## 使用方法
 
 1. clone 本仓库到工作空间里，必须加 `--recursive` 参数以获取子模块：
@@ -18,7 +51,7 @@ RoboMaster 裁判系统的 ROS2 驱动，用于简化 ROS2 下和裁判系统的
 git clone --recursive https://github.com/XDU-IRobot/rm_referee_ros2.git
 ```
 
-2. 安装 boost::asio
+2. 安装 boost::asio（一般来说 ROS2 的依赖链里已经有它了，不用额外安装）：
 
 ```bash
 sudo apt install libboost-all-dev
