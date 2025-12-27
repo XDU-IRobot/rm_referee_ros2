@@ -155,6 +155,12 @@ void RefereeNode::SpawnPublishers() {
   custom_robot_data_pub_ = create_publisher<rm_referee_msgs::msg::CustomRobotData>(  //
       "/rm_referee/custom_robot_data",                                               //
       rclcpp::SensorDataQoS());
+  robot_custom_data_pub_ = create_publisher<rm_referee_msgs::msg::RobotCustomData>(  //
+      "/rm_referee/robot_custom_data",                                               //
+      rclcpp::SensorDataQoS());
+  robot_custom_data_2_pub_ = create_publisher<rm_referee_msgs::msg::RobotCustomData2>(  //
+      "/rm_referee/robot_custom_data_2",                                                //
+      rclcpp::SensorDataQoS());
   map_command_pub_ = create_publisher<rm_referee_msgs::msg::MapCommand>(  //
       "/rm_referee/map_command",                                          //
       rclcpp::SensorDataQoS());
@@ -214,22 +220,14 @@ void RefereeNode::PublishMsg(uint16_t cmd_id, const rm::device::RefereeProtocol<
     }
     case CmdEnum::kGameRobotHp: {
       game_robot_hp_msg_.header.stamp = get_clock()->now();
-      game_robot_hp_msg_.red_1_robot_hp = referee_data.game_robot_HP.red_1_robot_HP;
-      game_robot_hp_msg_.red_2_robot_hp = referee_data.game_robot_HP.red_2_robot_HP;
-      game_robot_hp_msg_.red_3_robot_hp = referee_data.game_robot_HP.red_3_robot_HP;
-      game_robot_hp_msg_.red_4_robot_hp = referee_data.game_robot_HP.red_4_robot_HP;
+      game_robot_hp_msg_.ally_1_robot_hp = referee_data.game_robot_HP.ally_1_robot_HP;
+      game_robot_hp_msg_.ally_2_robot_hp = referee_data.game_robot_HP.ally_2_robot_HP;
+      game_robot_hp_msg_.ally_3_robot_hp = referee_data.game_robot_HP.ally_3_robot_HP;
+      game_robot_hp_msg_.ally_4_robot_hp = referee_data.game_robot_HP.ally_4_robot_HP;
       game_robot_hp_msg_.reserved = referee_data.game_robot_HP.reserved;
-      game_robot_hp_msg_.red_7_robot_hp = referee_data.game_robot_HP.red_7_robot_HP;
-      game_robot_hp_msg_.red_outpost_hp = referee_data.game_robot_HP.red_outpost_HP;
-      game_robot_hp_msg_.red_base_hp = referee_data.game_robot_HP.red_base_HP;
-      game_robot_hp_msg_.blue_1_robot_hp = referee_data.game_robot_HP.blue_1_robot_HP;
-      game_robot_hp_msg_.blue_2_robot_hp = referee_data.game_robot_HP.blue_2_robot_HP;
-      game_robot_hp_msg_.blue_3_robot_hp = referee_data.game_robot_HP.blue_3_robot_HP;
-      game_robot_hp_msg_.blue_4_robot_hp = referee_data.game_robot_HP.blue_4_robot_HP;
-      game_robot_hp_msg_.reserved_2 = referee_data.game_robot_HP.reserved_2;
-      game_robot_hp_msg_.blue_7_robot_hp = referee_data.game_robot_HP.blue_7_robot_HP;
-      game_robot_hp_msg_.blue_outpost_hp = referee_data.game_robot_HP.blue_outpost_HP;
-      game_robot_hp_msg_.blue_base_hp = referee_data.game_robot_HP.blue_base_HP;
+      game_robot_hp_msg_.ally_7_robot_hp = referee_data.game_robot_HP.ally_7_robot_HP;
+      game_robot_hp_msg_.ally_outpost_hp = referee_data.game_robot_HP.ally_outpost_HP;
+      game_robot_hp_msg_.ally_base_hp = referee_data.game_robot_HP.ally_base_HP;
       game_robot_hp_pub_->publish(game_robot_hp_msg_);
       break;
     }
@@ -276,7 +274,6 @@ void RefereeNode::PublishMsg(uint16_t cmd_id, const rm::device::RefereeProtocol<
       power_heat_data_msg_.reserved_3 = referee_data.power_heat_data.reserved_3;
       power_heat_data_msg_.buffer_energy = referee_data.power_heat_data.buffer_energy;
       power_heat_data_msg_.shooter_17mm_1_barrel_heat = referee_data.power_heat_data.shooter_17mm_1_barrel_heat;
-      power_heat_data_msg_.shooter_17mm_2_barrel_heat = referee_data.power_heat_data.shooter_17mm_2_barrel_heat;
       power_heat_data_msg_.shooter_42mm_barrel_heat = referee_data.power_heat_data.shooter_42mm_barrel_heat;
       power_heat_data_pub_->publish(power_heat_data_msg_);
       break;
@@ -320,12 +317,14 @@ void RefereeNode::PublishMsg(uint16_t cmd_id, const rm::device::RefereeProtocol<
       projectile_allowance_msg_.projectile_allowance_17mm = referee_data.projectile_allowance.projectile_allowance_17mm;
       projectile_allowance_msg_.projectile_allowance_42mm = referee_data.projectile_allowance.projectile_allowance_42mm;
       projectile_allowance_msg_.remaining_gold_coin = referee_data.projectile_allowance.remaining_gold_coin;
+      projectile_allowance_msg_.projectile_allowance_fortress = referee_data.projectile_allowance.projectile_allowance_fortress;
       projectile_allowance_pub_->publish(projectile_allowance_msg_);
       break;
     }
     case CmdEnum::kRfidStatus: {
       rfid_status_msg_.header.stamp = get_clock()->now();
       rfid_status_msg_.rfid_status = referee_data.rfid_status.rfid_status;
+      rfid_status_msg_.rfid_status_2 = referee_data.rfid_status.rfid_status_2;
       rfid_status_pub_->publish(rfid_status_msg_);
       break;
     }
@@ -362,6 +361,7 @@ void RefereeNode::PublishMsg(uint16_t cmd_id, const rm::device::RefereeProtocol<
     case CmdEnum::kSentryInfo: {
       sentry_info_msg_.header.stamp = get_clock()->now();
       sentry_info_msg_.sentry_info = referee_data.sentry_info.sentry_info;
+      sentry_info_msg_.sentry_info_2 = referee_data.sentry_info.sentry_info_2;
       sentry_info_pub_->publish(sentry_info_msg_);
       break;
     }
@@ -375,6 +375,18 @@ void RefereeNode::PublishMsg(uint16_t cmd_id, const rm::device::RefereeProtocol<
       custom_robot_data_msg_.header.stamp = get_clock()->now();
       memcpy(&custom_robot_data_msg_.data, referee_data.custom_robot_data.data, 30);
       custom_robot_data_pub_->publish(custom_robot_data_msg_);
+      break;
+    }
+    case CmdEnum::kRobotCustomData: {
+      robot_custom_data_msg_.header.stamp = get_clock()->now();
+      memcpy(&robot_custom_data_msg_.data, referee_data.robot_custom_data.data, 30);
+      robot_custom_data_pub_->publish(robot_custom_data_msg_);
+      break;
+    }
+    case CmdEnum::kRobotCustomData2: {
+      robot_custom_data_2_msg_.header.stamp = get_clock()->now();
+      memcpy(&robot_custom_data_2_msg_.data, referee_data.robot_custom_data_2.data, 150);
+      robot_custom_data_2_pub_->publish(robot_custom_data_2_msg_);
       break;
     }
     case CmdEnum::kMapCommand: {

@@ -4,5 +4,4 @@ uint16 reserved_2
 float32 reserved_3
 uint16 buffer_energy
 uint16 shooter_17mm_1_barrel_heat
-uint16 shooter_17mm_2_barrel_heat
 uint16 shooter_42mm_barrel_heat
