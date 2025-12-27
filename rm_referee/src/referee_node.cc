@@ -317,7 +317,8 @@ void RefereeNode::PublishMsg(uint16_t cmd_id, const rm::device::RefereeProtocol<
       projectile_allowance_msg_.projectile_allowance_17mm = referee_data.projectile_allowance.projectile_allowance_17mm;
       projectile_allowance_msg_.projectile_allowance_42mm = referee_data.projectile_allowance.projectile_allowance_42mm;
       projectile_allowance_msg_.remaining_gold_coin = referee_data.projectile_allowance.remaining_gold_coin;
-      projectile_allowance_msg_.projectile_allowance_fortress = referee_data.projectile_allowance.projectile_allowance_fortress;
+      projectile_allowance_msg_.projectile_allowance_fortress =
+          referee_data.projectile_allowance.projectile_allowance_fortress;
       projectile_allowance_pub_->publish(projectile_allowance_msg_);
       break;
     }
