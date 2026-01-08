@@ -16,8 +16,8 @@ RoboMaster 裁判系统的 ROS2 驱动，用于简化 ROS2 下和裁判系统的
 <tr>
 <td>foxy</td>
 <td rowspan=2>
-    <a href="https://github.com/XDU-IRobot/rm_referee_ros2/actions/workflows/build.yaml">
-        <img src="https://github.com/XDU-IRobot/rm_referee_ros2/actions/workflows/build.yaml/badge.svg">
+    <a href="https://github.com/XDU-IRobot/rm_referee_ros2/actions/workflows/build_eol.yaml">
+        <img src="https://github.com/XDU-IRobot/rm_referee_ros2/actions/workflows/build_eol.yaml/badge.svg">
     </a>
 </td>
 </tr>
@@ -27,8 +27,8 @@ RoboMaster 裁判系统的 ROS2 驱动，用于简化 ROS2 下和裁判系统的
 <tr>
 <td>humble</td>
 <td rowspan=4>
-    <a href="https://github.com/XDU-IRobot/rm_referee_ros2/actions/workflows/build_eol.yaml">
-        <img src="https://github.com/XDU-IRobot/rm_referee_ros2/actions/workflows/build_eol.yaml/badge.svg">
+    <a href="https://github.com/XDU-IRobot/rm_referee_ros2/actions/workflows/build.yaml">
+        <img src="https://github.com/XDU-IRobot/rm_referee_ros2/actions/workflows/build.yaml/badge.svg">
     </a>
 </td>
 </tr>

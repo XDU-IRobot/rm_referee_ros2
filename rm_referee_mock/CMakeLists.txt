@@ -50,18 +50,4 @@ rclcpp_components_register_node(dart_client_component
   EXECUTABLE dart_client
 )
 
-# Install library and executable
-install(TARGETS
-  keyboard_publisher_component
-  dart_client_component
-  ARCHIVE DESTINATION lib
-  LIBRARY DESTINATION lib
-  RUNTIME DESTINATION bin
-)
-
-if(BUILD_TESTING)
-  find_package(ament_lint_auto REQUIRED)
-  ament_lint_auto_find_test_dependencies()
-endif()
-
-ament_package()
+ament_auto_package(USE_SCOPED_HEADER_INSTALL_DIR)
