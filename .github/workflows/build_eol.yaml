@@ -24,6 +24,10 @@ jobs:
         with:
           submodules: "recursive"
           token: ${{ secrets.CI }}
+      - name: Install dependencies
+        run: |
+          apt-get update
+          apt-get install -y libboost-all-dev libsdl1.2-dev
       - name: Build
         shell: bash
         run: |
