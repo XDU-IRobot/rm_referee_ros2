@@ -11,14 +11,35 @@
 运行节点：
 
 ```bash
-ros2 run rm_referee_mock keyboard_publisher_node --ros-args -p publish_topic:=/rm_referee/mock/remote_control -p publish_rate:=20
+ros2 run rm_referee_mock keyboard_publisher --ros-args -p publish_topic:=/rm_referee/mock/remote_control -p publish_rate:=20
 ```
 
 运行后会弹出一个窗口，聚焦窗口后按键盘即可。
 
 ### 参数
 
-| 参数名          | 说明                        | 默认值                            |
-| --------------- | --------------------------- | --------------------------------- |
-| `publish_topic` | 发布键鼠数据的 ROS 话题名称 | `/rm_referee/mock/remote_control` |
-| `publish_rate`  | 发布数据的频率，单位为 Hz   | `20`                              |
+| 参数名          | 说明                      | 默认值                            |
+| --------------- | ------------------------- | --------------------------------- |
+| `publish_topic` | 发布数据的 ROS 话题名     | `/rm_referee/mock/remote_control` |
+| `publish_rate`  | 发布数据的频率，单位为 Hz | `20.0`                            |
+
+## dart_client
+
+`dart_client` 模拟云台手客户端的飞镖发射命令。它读取本地键盘输入，并根据输入的命令构造 `rm_referee_msgs/DartClientCmd` 消息发布到指定话题上。
+
+### 使用方法
+
+运行节点：
+
+```bash
+ros2 run rm_referee_mock dart_client --ros-args -p publish_topic:=/rm_referee/mock/dart_client_cmd -p publish_rate:=1
+```
+
+运行后会在终端显示按键说明。
+
+### 参数
+
+| 参数名          | 说明                      | 默认值                             |
+| --------------- | ------------------------- | ---------------------------------- |
+| `publish_topic` | 发布数据的 ROS 话题名     | `/rm_referee/mock/dart_client_cmd` |
+| `publish_rate`  | 发布数据的频率，单位为 Hz | `10.0`                             |
