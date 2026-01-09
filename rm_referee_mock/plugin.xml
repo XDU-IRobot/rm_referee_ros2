@@ -4,9 +4,27 @@
       Match control panel for RoboMaster referee system testing
     </description>
     <qtgui>
+      <group>
+        <label>RM Referee Mock</label>
+        <icon type="theme">folder</icon>
+      </group>
       <label>Match Control</label>
       <icon type="theme">input-gaming</icon>
       <statustip>RoboMaster match control panel</statustip>
+    </qtgui>
+  </class>
+  <class name="KeyboardPublisher" type="rm_referee_mock.rqt_plugin_keyboard_publisher.KeyboardPublisherPlugin" base_class_type="rqt_gui_py::Plugin">
+    <description>
+      Keyboard input publisher for RoboMaster referee system testing
+    </description>
+    <qtgui>
+      <group>
+        <label>RM Referee Mock</label>
+        <icon type="theme">folder</icon>
+      </group>
+      <label>Keyboard Publisher</label>
+      <icon type="theme">input-keyboard</icon>
+      <statustip>RoboMaster keyboard input publisher</statustip>
     </qtgui>
   </class>
 </library>

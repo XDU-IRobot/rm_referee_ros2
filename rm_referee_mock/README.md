@@ -8,20 +8,14 @@
 
 ### 使用方法
 
-运行节点：
+使用 `colcon build` 编译并 source 工作空间后，在 rqt 中启动 `Keyboard Publisher` 插件即可使用：
 
-```bash
-ros2 run rm_referee_mock keyboard_publisher --ros-args -p publish_topic:=/rm_referee/mock/remote_control -p publish_rate:=20
-```
+![keyboard_publisher_rqt](../docs/keyboard_publisher_rqt.jpg)
 
-运行后会弹出一个窗口，聚焦窗口后按键盘即可。
+可以在界面的 Settings 区域直接修改：
 
-### 参数
-
-| 参数名          | 说明                      | 默认值                            |
-| --------------- | ------------------------- | --------------------------------- |
-| `publish_topic` | 发布数据的 ROS 话题名     | `/rm_referee/mock/remote_control` |
-| `publish_rate`  | 发布数据的频率，单位为 Hz | `20.0`                            |
+- **Topic**: 发布数据的 ROS 话题名（默认：`/rm_referee/mock/remote_control`）
+- **Rate (Hz)**: 发布数据的频率（默认：`20.0`）
 
 ## dart_client
 

@@ -15,7 +15,6 @@
   <depend>rclcpp_components</depend>
   <depend>std_msgs</depend>
   <depend>rm_referee_msgs</depend>
-  <depend>SDL</depend>
 
   <exec_depend>rclpy</exec_depend>
   <exec_depend>rqt_gui</exec_depend>

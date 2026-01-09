@@ -12,26 +12,6 @@ find_package(ament_cmake_auto REQUIRED)
 ament_auto_find_build_dependencies()
 
 #######################
-########## keyboard_publisher
-#######################
-ament_auto_add_library(keyboard_publisher_component SHARED
-  src/keyboard_publisher.cc
-)
-
-target_include_directories(keyboard_publisher_component
-  PUBLIC
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:include>
-  PRIVATE
-  ${SDL_INCLUDE_DIR}
-)
-
-rclcpp_components_register_node(keyboard_publisher_component
-  PLUGIN "rm_referee_mock::KeyboardPublisher"
-  EXECUTABLE keyboard_publisher
-)
-
-#######################
 ########## dart_client
 #######################
 ament_auto_add_library(dart_client_component SHARED
@@ -50,7 +30,7 @@ rclcpp_components_register_node(dart_client_component
 )
 
 #######################
-########## match_control
+########## rqt plugins
 #######################
 install(DIRECTORY assets
   DESTINATION share/${PROJECT_NAME}
@@ -62,7 +42,6 @@ install(FILES
   DESTINATION share/${PROJECT_NAME}
 )
 
-# Install Python module
-ament_python_install_package(${PROJECT_NAME})
 
+ament_python_install_package(${PROJECT_NAME}) # Install Python module
 ament_auto_package()

@@ -51,15 +51,7 @@ RoboMaster 裁判系统的 ROS2 驱动，用于简化 ROS2 下和裁判系统的
 git clone --recursive https://github.com/XDU-IRobot/rm_referee_ros2.git
 ```
 
-2. 安装依赖：
-
-```bash
-sudo apt update && sudo apt install -y \
-  libsdl1.2-dev \
-  libboost-all-dev
-```
-
-3. 复制一份`rm_referee/launch/referee_node.launch.py`到你自己的项目里，按需修改里面的参数，然后运行即可。
+2. `colcon build`编译，然后复制一份`rm_referee/launch/referee_node.launch.py`到你自己的项目里，按需修改里面的参数，运行即可。
 
 裁判系统通过串口发送的数据会被封装成消息发布到对应话题上，反之可以通过请求`/rm_referee/tx`服务向裁判系统串口发送数据。
 
