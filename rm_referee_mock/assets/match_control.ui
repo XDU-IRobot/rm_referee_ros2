@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QComboBox" name="comboBox">
+  <widget class="QComboBox" name="comboBox_game_type">
    <property name="geometry">
     <rect>
      <x>500</x>
@@ -57,7 +57,7 @@
    <property name="title">
     <string>己方HP</string>
    </property>
-   <widget class="QSpinBox" name="spinBox">
+   <widget class="QSpinBox" name="spinBox_hp_1">
     <property name="geometry">
      <rect>
       <x>110</x>
@@ -80,7 +80,7 @@
      <string>1</string>
     </property>
    </widget>
-   <widget class="QSpinBox" name="spinBox_2">
+   <widget class="QSpinBox" name="spinBox_hp_2">
     <property name="geometry">
      <rect>
       <x>110</x>
@@ -116,7 +116,7 @@
      <string>3</string>
     </property>
    </widget>
-   <widget class="QSpinBox" name="spinBox_3">
+   <widget class="QSpinBox" name="spinBox_hp_3">
     <property name="geometry">
      <rect>
       <x>110</x>
@@ -139,7 +139,7 @@
      <string>4</string>
     </property>
    </widget>
-   <widget class="QSpinBox" name="spinBox_4">
+   <widget class="QSpinBox" name="spinBox_hp_4">
     <property name="geometry">
      <rect>
       <x>110</x>
@@ -162,7 +162,7 @@
      <string>sentry(7)</string>
     </property>
    </widget>
-   <widget class="QSpinBox" name="spinBox_5">
+   <widget class="QSpinBox" name="spinBox_hp_7">
     <property name="geometry">
      <rect>
       <x>110</x>
@@ -185,7 +185,7 @@
      <string>outpost</string>
     </property>
    </widget>
-   <widget class="QSpinBox" name="spinBox_6">
+   <widget class="QSpinBox" name="spinBox_hp_outpost">
     <property name="geometry">
      <rect>
       <x>110</x>
@@ -208,7 +208,7 @@
      <string>base</string>
     </property>
    </widget>
-   <widget class="QSpinBox" name="spinBox_7">
+   <widget class="QSpinBox" name="spinBox_hp_base">
     <property name="geometry">
      <rect>
       <x>110</x>
@@ -219,7 +219,7 @@
     </property>
    </widget>
   </widget>
-  <widget class="QComboBox" name="comboBox_2">
+  <widget class="QComboBox" name="comboBox_game_stage">
    <property name="geometry">
     <rect>
      <x>500</x>
@@ -251,7 +251,7 @@
     <string>比赛阶段</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit">
+  <widget class="QLineEdit" name="lineEdit_time">
    <property name="geometry">
     <rect>
      <x>500</x>
@@ -299,7 +299,7 @@
      <x>30</x>
      <y>20</y>
      <width>361</width>
-     <height>491</height>
+     <height>381</height>
     </rect>
    </property>
    <property name="title">
@@ -344,7 +344,7 @@
      <string>补给区(UL)</string>
     </property>
    </widget>
-   <widget class="QComboBox" name="comboBox_3">
+   <widget class="QComboBox" name="comboBox_small_rune">
     <property name="geometry">
      <rect>
       <x>120</x>
@@ -395,7 +395,7 @@
      <string>大能量机关</string>
     </property>
    </widget>
-   <widget class="QComboBox" name="comboBox_4">
+   <widget class="QComboBox" name="comboBox_big_rune">
     <property name="geometry">
      <rect>
       <x>120</x>
@@ -430,7 +430,7 @@
      <string>己方中央高地</string>
     </property>
    </widget>
-   <widget class="QComboBox" name="comboBox_5">
+   <widget class="QComboBox" name="comboBox_central_highland">
     <property name="geometry">
      <rect>
       <x>120</x>
@@ -462,7 +462,7 @@
      <string>己方梯形高地</string>
     </property>
    </widget>
-   <widget class="QComboBox" name="comboBox_6">
+   <widget class="QComboBox" name="comboBox_dart_target">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -497,7 +497,7 @@
      <string>对方飞镖最后一次击中</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_2">
+   <widget class="QLineEdit" name="lineEdit_dart_time">
     <property name="geometry">
      <rect>
       <x>130</x>
@@ -542,7 +542,7 @@
      <string>中心增益点</string>
     </property>
    </widget>
-   <widget class="QComboBox" name="comboBox_7">
+   <widget class="QComboBox" name="comboBox_central_buff">
     <property name="geometry">
      <rect>
       <x>120</x>
@@ -577,7 +577,7 @@
      <string>己方堡垒增益点</string>
     </property>
    </widget>
-   <widget class="QComboBox" name="comboBox_8">
+   <widget class="QComboBox" name="comboBox_fortress_buff">
     <property name="geometry">
      <rect>
       <x>120</x>
@@ -601,7 +601,7 @@
      <rect>
       <x>20</x>
       <y>240</y>
-      <width>81</width>
+      <width>111</width>
       <height>31</height>
      </rect>
     </property>
@@ -609,10 +609,10 @@
      <enum>QFrame::NoFrame</enum>
     </property>
     <property name="text">
-     <string>中心增益点</string>
+     <string>己方前哨站增益点</string>
     </property>
    </widget>
-   <widget class="QComboBox" name="comboBox_9">
+   <widget class="QComboBox" name="comboBox_outpost_buff">
     <property name="geometry">
      <rect>
       <x>120</x>
@@ -631,7 +631,7 @@
      <string/>
     </property>
    </widget>
-   <widget class="QCheckBox" name="checkBox_5">
+   <widget class="QCheckBox" name="checkBox_base_buff">
     <property name="geometry">
      <rect>
       <x>230</x>
@@ -645,7 +645,7 @@
     </property>
    </widget>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="pushButton_playpause">
    <property name="geometry">
     <rect>
      <x>610</x>
@@ -656,6 +656,35 @@
    </property>
    <property name="text">
     <string>▶</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_topic_prefix">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>430</y>
+     <width>261</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>/rm_referee/mock</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_20">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>430</y>
+     <width>81</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::NoFrame</enum>
+   </property>
+   <property name="text">
+    <string>Topic prefix</string>
    </property>
   </widget>
  </widget>
