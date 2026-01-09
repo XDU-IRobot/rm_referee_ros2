@@ -43,3 +43,19 @@ ros2 run rm_referee_mock dart_client --ros-args -p publish_topic:=/rm_referee/mo
 | --------------- | ------------------------- | ---------------------------------- |
 | `publish_topic` | 发布数据的 ROS 话题名     | `/rm_referee/mock/dart_client_cmd` |
 | `publish_rate`  | 发布数据的频率，单位为 Hz | `10.0`                             |
+
+## match_control [WIP!]
+
+`match_control` 提供了一个图形化界面，用于手动控制比赛数据发布。可以控制发布的数据包括：
+
+- `0x0001` `rm_referee_msgs/GameStatus`：比赛状态
+- `0x0003` `rm_referee_msgs/GameRobotHP`：己方机器人血量
+- `0x0101` `rm_referee_msgs/EventData`：场地事件数据
+
+如果有需要，可以扩展更多比赛状态的控制项。
+
+### 使用方法
+
+使用`colcon build`编译并source工作空间后，在rqt中启动`Match Control`插件即可使用：
+
+![match_control_rqt](../docs/match_control_rqt.jpg)

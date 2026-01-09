@@ -1,0 +1,12 @@
+<library path="rm_referee_mock">
+  <class name="MatchControl" type="rm_referee_mock.match_control_widget.MatchControlPlugin" base_class_type="rqt_gui_py::Plugin">
+    <description>
+      Match control panel for RoboMaster referee system testing
+    </description>
+    <qtgui>
+      <label>Match Control</label>
+      <icon type="theme">input-gaming</icon>
+      <statustip>RoboMaster match control panel</statustip>
+    </qtgui>
+  </class>
+</library>

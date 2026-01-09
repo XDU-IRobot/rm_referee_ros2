@@ -7,6 +7,7 @@ if(NOT CMAKE_CXX_STANDARD)
 endif()
 
 # find dependencies
+find_package(ament_cmake_python REQUIRED)
 find_package(ament_cmake_auto REQUIRED)
 ament_auto_find_build_dependencies()
 
@@ -25,7 +26,6 @@ target_include_directories(keyboard_publisher_component
   ${SDL_INCLUDE_DIR}
 )
 
-# Register component
 rclcpp_components_register_node(keyboard_publisher_component
   PLUGIN "rm_referee_mock::KeyboardPublisher"
   EXECUTABLE keyboard_publisher
@@ -44,10 +44,25 @@ target_include_directories(dart_client_component
   $<INSTALL_INTERFACE:include>
 )
 
-# Register component
 rclcpp_components_register_node(dart_client_component
   PLUGIN "rm_referee_mock::DartClient"
   EXECUTABLE dart_client
 )
 
-ament_auto_package(USE_SCOPED_HEADER_INSTALL_DIR)
+#######################
+########## match_control
+#######################
+install(DIRECTORY assets
+  DESTINATION share/${PROJECT_NAME}
+)
+
+# Install plugin descriptor for rqt
+install(FILES
+  plugin.xml
+  DESTINATION share/${PROJECT_NAME}
+)
+
+# Install Python module
+ament_python_install_package(${PROJECT_NAME})
+
+ament_auto_package()
