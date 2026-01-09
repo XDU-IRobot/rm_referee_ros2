@@ -14,7 +14,10 @@ ament_auto_find_build_dependencies()
 add_subdirectory(libs)
 
 # 创建 referee_node 组件库
-ament_auto_add_library(referee_node_component SHARED src/referee_node.cc)
+ament_auto_add_library(referee_node_component SHARED
+  src/referee_node.cc
+  src/byte_stream_recorder.cc
+)
 target_link_libraries(referee_node_component ${PROJECT_NAME}_third_party ${Boost_LIBRARIES})
 target_include_directories(referee_node_component PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>

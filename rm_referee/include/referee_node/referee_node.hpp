@@ -4,7 +4,6 @@
 #include <rclcpp/rclcpp.hpp>
 
 #include <librm.hpp>
-#include <atomic>
 
 #include <rm_referee_msgs/msg/custom_robot_data.hpp>
 #include <rm_referee_msgs/msg/robot_custom_data.hpp>
@@ -32,8 +31,8 @@
 #include <rm_referee_msgs/msg/map_command.hpp>
 #include <rm_referee_msgs/srv/tx.hpp>
 
-#include "asio_serial.hpp"
-#include "librm/device/referee/protocol.hpp"
+#include "referee_node/asio_serial.hpp"
+#include "referee_node/byte_stream_recorder.hpp"
 
 class RefereeNode : public rclcpp::Node {
  public:
@@ -62,6 +61,8 @@ class RefereeNode : public rclcpp::Node {
   bool param_new_vt_{};
   bool param_enable_normal_{};
   bool param_enable_vt_{};
+  bool param_record_raw_data_{};
+  std::string param_raw_data_path_{};
   /** </Parameters> **/
 
  private:
@@ -70,6 +71,10 @@ class RefereeNode : public rclcpp::Node {
   std::thread vt_serial_rx_thread_;
   std::atomic<bool> stop_threads_{false};
   /** </Threads> **/
+  /** <Raw Data Recording> **/
+  std::unique_ptr<referee_node::ByteStreamRecorder> normal_recorder_;
+  std::unique_ptr<referee_node::ByteStreamRecorder> vt_recorder_;
+  /** </Raw Data Recording> **/
   /** <Decoders> **/
   rm::device::Referee<rm::device::RefereeRevision::kNewV110> normal_referee_;
   rm::device::Referee<rm::device::RefereeRevision::kNewV110> vt_referee_;

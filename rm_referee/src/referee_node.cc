@@ -1,6 +1,5 @@
 
 #include "referee_node/referee_node.hpp"
-
 #include "referee_node/log_utils.hpp"
 
 RefereeNode::RefereeNode(const rclcpp::NodeOptions &options) : rclcpp::Node("referee_node", options) {
@@ -16,11 +15,36 @@ RefereeNode::RefereeNode(const rclcpp::NodeOptions &options) : rclcpp::Node("ref
     RCLCPP_INFO(get_logger(), ("Normal data link: " + text::Green("Enabled") + " @ %s").c_str(),
                 param_normal_tty_device_.c_str());
     SerialInit(param_normal_tty_device_, normal_serial_);
+
+    // 启用原始数据记录，创建一个Recorder
+    if (param_record_raw_data_) {
+      const auto now = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+      std::stringstream ss;
+      ss << param_raw_data_path_ << "/normal_raw_data_" << std::put_time(std::localtime(&now), "%Y%m%d_%H%M%S")
+         << ".bin";
+      normal_recorder_ = std::make_unique<referee_node::ByteStreamRecorder>(ss.str());
+      if (normal_recorder_->IsOpen()) {
+        RCLCPP_INFO(get_logger(), "Recording normal raw data to: %s", ss.str().c_str());
+      } else {
+        RCLCPP_ERROR(get_logger(), "Failed to open file for recording normal raw data: %s", ss.str().c_str());
+        normal_recorder_.reset();
+      }
+    }
+
     normal_serial_rx_thread_ = std::thread([this] {
       while (!stop_threads_) {
         const auto data = normal_serial_->read();
+        // 记录原始数据
+        if (normal_recorder_) {
+          normal_recorder_->Write(data);
+        }
         for (auto byte : data) {
           normal_referee_ << byte;
+        }
+        if (normal_referee_.loss_rate() > 10.f) {
+          RCLCPP_WARN_THROTTLE(get_logger(), *get_clock(), 2000,
+                               text::Yellow("High loss rate on normal link! %.2f%%").c_str(),
+                               normal_referee_.loss_rate());
         }
       }
     });
@@ -36,14 +60,35 @@ RefereeNode::RefereeNode(const rclcpp::NodeOptions &options) : rclcpp::Node("ref
       SerialInit(param_vt_tty_device_, vt_serial_);
     }
 
+    // 启用原始数据记录，创建一个Recorder
+    if (param_record_raw_data_) {
+      auto now = std::chrono::system_clock::now();
+      auto now_time_t = std::chrono::system_clock::to_time_t(now);
+      std::stringstream ss;
+      ss << param_raw_data_path_ << "/vt_raw_data_" << std::put_time(std::localtime(&now_time_t), "%Y%m%d_%H%M%S")
+         << ".bin";
+      vt_recorder_ = std::make_unique<referee_node::ByteStreamRecorder>(ss.str());
+      if (vt_recorder_->IsOpen()) {
+        RCLCPP_INFO(get_logger(), "Recording VT raw data to: %s", ss.str().c_str());
+      } else {
+        RCLCPP_ERROR(get_logger(), "Failed to open file for recording VT raw data: %s", ss.str().c_str());
+        vt_recorder_.reset();
+      }
+    }
+
     vt_serial_rx_thread_ = std::thread([this] {
       while (!stop_threads_) {
         const auto data = vt_serial_->read();
+        // 记录原始数据
+        if (vt_recorder_) {
+          vt_recorder_->Write(data);
+        }
         for (auto byte : data) {
           vt_referee_ << byte;
         }
         if (vt_referee_.loss_rate() > 10.f) {
-          RCLCPP_WARN_THROTTLE(get_logger(), *get_clock(), 2000, "High VT data link packet loss rate: %.2f%%",
+          RCLCPP_WARN_THROTTLE(get_logger(), *get_clock(), 2000,
+                               text::Yellow("High loss rate on VT link! %.2f%%").c_str(),  //
                                vt_referee_.loss_rate());
         }
       }
@@ -91,6 +136,14 @@ RefereeNode::~RefereeNode() {
   }
   if (vt_serial_rx_thread_.joinable()) {
     vt_serial_rx_thread_.join();
+  }
+
+  // 记录器会在析构时自动关闭文件
+  if (normal_recorder_) {
+    RCLCPP_INFO(get_logger(), "Normal raw data file closed");
+  }
+  if (vt_recorder_) {
+    RCLCPP_INFO(get_logger(), "VT raw data file closed");
   }
 }
 
@@ -176,6 +229,8 @@ void RefereeNode::GetParameters() {
   param_new_vt_ = declare_parameter("new_vt", false);
   param_normal_tty_device_ = declare_parameter("normal_tty_device", "/dev/ttyUSB0");
   param_vt_tty_device_ = declare_parameter("vt_tty_device", "/dev/ttyUSB0");
+  param_record_raw_data_ = declare_parameter("record_raw_data", false);
+  param_raw_data_path_ = declare_parameter("raw_data_path", "/tmp/rm_referee_data");
 }
 
 /**
