@@ -15,6 +15,8 @@ PACKAGE_SHARE = get_package_share_directory("rm_referee_mock")
 class MatchControlWidget(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
+        
+        self.setWindowTitle("Match Control")
 
         # 加载 UI 文件
         ui_file = path.join(PACKAGE_SHARE, "assets", "match_control.ui")

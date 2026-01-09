@@ -27,4 +27,18 @@
       <statustip>RoboMaster keyboard input publisher</statustip>
     </qtgui>
   </class>
+  <class name="DartClient" type="rm_referee_mock.rqt_plugin_dart_client.DartClientPlugin" base_class_type="rqt_gui_py::Plugin">
+    <description>
+      Dart launch system control panel for RoboMaster referee system testing
+    </description>
+    <qtgui>
+      <group>
+        <label>RM Referee Mock</label>
+        <icon type="theme">folder</icon>
+      </group>
+      <label>Dart Client</label>
+      <icon type="theme">system-run</icon>
+      <statustip>RoboMaster dart launch system controller</statustip>
+    </qtgui>
+  </class>
 </library>
