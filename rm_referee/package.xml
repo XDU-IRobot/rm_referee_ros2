@@ -7,13 +7,15 @@
   <maintainer email="messenger@lunariio.work">lunarifish</maintainer>
   <license>TODO: License declaration</license>
 
-  <buildtool_depend>ament_cmake</buildtool_depend>
+  <buildtool_depend>ament_cmake_auto</buildtool_depend>
+
+  <depend>rclcpp</depend>
+  <depend>rclcpp_components</depend>
+  <depend>rm_referee_msgs</depend>
+  <depend>tf2_ros</depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
-
-  <depend>rclcpp</depend>
-  <depend>rm_referee_msgs</depend>
 
   <export>
     <build_type>ament_cmake</build_type>
