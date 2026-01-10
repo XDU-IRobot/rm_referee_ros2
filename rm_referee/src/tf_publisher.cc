@@ -50,7 +50,7 @@ class TfPublisher : public rclcpp::Node {
     t.transform.translation.z = 0.0;
 
     tf2::Quaternion q;
-    q.setRPY(0, 0, msg->angle);
+    q.setRPY(0, 0, msg->angle * M_PI / 180.0);  // Convert degrees to radians
     t.transform.rotation.x = q.x();
     t.transform.rotation.y = q.y();
     t.transform.rotation.z = q.z();
