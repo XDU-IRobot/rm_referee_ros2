@@ -16,11 +16,11 @@ class MatchControlWidget(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
         
-        self.setWindowTitle("Match Control")
-
         # 加载 UI 文件
         ui_file = path.join(PACKAGE_SHARE, "assets", "match_control.ui")
         uic.loadUi(ui_file, self)
+        
+        self.setWindowTitle("Match Control")
 
         # 创建定时器用于倒计时
         self.countdown_timer = QTimer(self)

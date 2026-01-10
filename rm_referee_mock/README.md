@@ -19,6 +19,14 @@
 - `0x0105` `rm_referee_msgs/DartInfo`：飞镖发射相关数据（固定以 3Hz 频率发送）
 - `0x020A` `rm_referee_msgs/DartClientCmd`：飞镖选手端指令数据（固定以 3Hz 频率发送）
 
+## Fake Location
+
+![fake_location_rqt](../docs/fake_location_rqt.jpg)
+
+模拟 UWB 定位数据。拖动 rqt 界面上对应的机器人到地图上的位置，或者编辑对应机器人的 X、Y 坐标，即可改变该机器人在场地内的位置。Fake Location 会根据以上数据发布假的 `rm_referee_msgs/RobotPos` 和 `rm_referee_msgs/GroundRobotPosition` 消息。另外，Fake Location 还支持给实际发布的假数据添加高斯噪声，以模拟真实环境下的定位误差。可以通过调整界面上的“位置噪声”参数来控制噪声的大小。
+
+> TODO: 通过 0x0301 多机通信消息模拟雷达发送的敌方机器人位置数据
+
 ## Match Control [WIP!]
 
 ![match_control_rqt](../docs/match_control_rqt.jpg)

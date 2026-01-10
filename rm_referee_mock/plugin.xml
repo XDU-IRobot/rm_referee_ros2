@@ -41,4 +41,18 @@
       <statustip>RoboMaster dart launch system controller</statustip>
     </qtgui>
   </class>
+  <class name="FakeLocation" type="rm_referee_mock.rqt_plugin_fake_location.FakeLocationPlugin" base_class_type="rqt_gui_py::Plugin">
+    <description>
+      Fake location data publisher for RoboMaster referee system testing
+    </description>
+    <qtgui>
+      <group>
+        <label>RM Referee Mock</label>
+        <icon type="theme">folder</icon>
+      </group>
+      <label>Fake Location</label>
+      <icon type="theme">applications-internet</icon>
+      <statustip>RoboMaster fake location data publisher</statustip>
+    </qtgui>
+  </class>
 </library>
