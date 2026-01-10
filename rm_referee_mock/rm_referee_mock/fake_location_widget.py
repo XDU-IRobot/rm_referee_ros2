@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import math
 from os import path
 
 from PyQt5.QtWidgets import (
@@ -37,14 +38,15 @@ class MapWidget(QWidget):
 
         # Initialize robot positions (in field coordinates)
         self.robot_positions = {
-            'hero': {'x': 17.5, 'y': 5.0},
-            'engineer': {'x': 15.0, 'y': 3.0},
-            'standard_3': {'x': 15.0, 'y': 7.0},
-            'standard_4': {'x': 12.0, 'y': 5.0},
-            'sentry': {'x': 20.0, 'y': 5.0},
+            'hero': {'x': 17.5, 'y': 5.0, 'angle': 0.0},
+            'engineer': {'x': 15.0, 'y': 3.0, 'angle': 0.0},
+            'standard_3': {'x': 15.0, 'y': 7.0, 'angle': 0.0},
+            'standard_4': {'x': 12.0, 'y': 5.0, 'angle': 0.0},
+            'sentry': {'x': 20.0, 'y': 5.0, 'angle': 0.0},
         }
 
         self.dragging_robot = None
+        self.dragging_angle = None  # For right-click angle dragging
         self.setMinimumSize(400, 400)
         self._scaled_rect = QRect()  # Store the actual rendered map rectangle
 
@@ -155,6 +157,41 @@ class MapWidget(QWidget):
             painter.setBrush(robot_info['color'])
             painter.drawEllipse(QPoint(widget_x, widget_y), radius, radius)
 
+            # Draw direction triangle
+            angle_rad = math.radians(pos['angle'])
+            triangle_distance = 15  # Distance from robot center to triangle
+            triangle_size = 6
+            
+            # Calculate triangle tip position
+            tip_x = widget_x + triangle_distance * math.cos(angle_rad)
+            tip_y = widget_y - triangle_distance * math.sin(angle_rad)
+            
+            # Calculate triangle base points (perpendicular to direction)
+            perp_angle1 = angle_rad + math.pi * 2/3
+            perp_angle2 = angle_rad - math.pi * 2/3
+            
+            base1_x = tip_x + triangle_size * math.cos(perp_angle1)
+            base1_y = tip_y - triangle_size * math.sin(perp_angle1)
+            base2_x = tip_x + triangle_size * math.cos(perp_angle2)
+            base2_y = tip_y - triangle_size * math.sin(perp_angle2)
+            
+            # Draw triangle with same color as robot
+            from PyQt5.QtGui import QPolygonF
+            from PyQt5.QtCore import QPointF
+            triangle = QPolygonF([
+                QPointF(tip_x, tip_y),
+                QPointF(base1_x, base1_y),
+                QPointF(base2_x, base2_y)
+            ])
+            
+            # Highlight if dragging angle
+            if self.dragging_angle == robot_key:
+                painter.setPen(QPen(QColor(255, 255, 0), 3))
+            else:
+                painter.setPen(QPen(QColor(0, 0, 0), 2))
+            painter.setBrush(robot_info['color'])
+            painter.drawPolygon(triangle)
+
             # Draw robot ID/name below the dot
             painter.setPen(QPen(QColor(255, 255, 255), 3))  # White outline
             font = QFont("Arial", 10, QFont.Bold)
@@ -175,10 +212,10 @@ class MapWidget(QWidget):
             painter.drawText(text_rect, Qt.AlignCenter, text)
 
     def mousePressEvent(self, event: QMouseEvent):
-        """Handle mouse press to start dragging a robot"""
+        """Handle mouse press to start dragging a robot or angle"""
+        pos = event.pos()
+        
         if event.button() == Qt.LeftButton:
-            pos = event.pos()
-
             # Check if clicked on any robot
             for robot_key in self.ROBOTS.keys():
                 robot_pos = self.robot_positions[robot_key]
@@ -190,14 +227,20 @@ class MapWidget(QWidget):
                 dy = pos.y() - widget_y
                 distance = (dx * dx + dy * dy) ** 0.5
 
-                if distance <= 10:  # Click threshold
+                # Triangle is at distance ~15 from center
+                # Priority: triangle area for angle dragging, then center for position dragging
+                if 8 <= distance <= 25:  # Click threshold for triangle area
+                    self.dragging_angle = robot_key
+                    break
+                elif distance <= 10:  # Click threshold for robot center
                     self.dragging_robot = robot_key
                     break
 
     def mouseMoveEvent(self, event: QMouseEvent):
-        """Handle mouse move to drag robot"""
+        """Handle mouse move to drag robot or angle"""
+        pos = event.pos()
+        
         if self.dragging_robot:
-            pos = event.pos()
             field_x, field_y = self.widget_to_field(pos.x(), pos.y())
             self.robot_positions[self.dragging_robot]['x'] = field_x
             self.robot_positions[self.dragging_robot]['y'] = field_y
@@ -209,11 +252,34 @@ class MapWidget(QWidget):
                     parent.update_position_display()
                     break
                 parent = parent.parent()
+        
+        elif self.dragging_angle:
+            # Calculate angle from robot center to mouse position
+            robot_pos = self.robot_positions[self.dragging_angle]
+            widget_x, widget_y = self.field_to_widget(
+                robot_pos['x'], robot_pos['y'])
+            
+            dx = pos.x() - widget_x
+            dy = widget_y - pos.y()  # Flip y because widget y increases downward
+            
+            # Calculate angle in degrees (0 = right, 90 = up, counter-clockwise)
+            angle_deg = math.degrees(math.atan2(dy, dx))
+            
+            self.robot_positions[self.dragging_angle]['angle'] = angle_deg
+            self.update()
+            # Notify parent widget to update angle display
+            parent = self.parent()
+            while parent:
+                if isinstance(parent, FakeLocationWidget):
+                    parent.update_position_display()
+                    break
+                parent = parent.parent()
 
     def mouseReleaseEvent(self, event: QMouseEvent):
         """Handle mouse release to stop dragging"""
         if event.button() == Qt.LeftButton:
             self.dragging_robot = None
+            self.dragging_angle = None
             self.update()
 
     def get_robot_positions(self):
@@ -283,7 +349,7 @@ class FakeLocationWidget(QWidget):
         position_layout = QGridLayout()
 
         # Create header labels
-        header_labels = ["机器人", "X", "Y"]
+        header_labels = ["机器人", "X", "Y", "朝向 (°)"]
         for col, text in enumerate(header_labels):
             label = QLabel(text)
             label.setStyleSheet("font-weight: bold; padding: 5px;")
@@ -330,8 +396,21 @@ class FakeLocationWidget(QWidget):
             )
             position_layout.addWidget(y_spinbox, row, 2)
 
+            # Angle spinbox
+            angle_spinbox = QDoubleSpinBox()
+            angle_spinbox.setRange(-180.0, 180.0)
+            angle_spinbox.setDecimals(1)
+            angle_spinbox.setSingleStep(1.0)
+            angle_spinbox.setValue(self.map_widget.robot_positions[robot_key]['angle'])
+            angle_spinbox.setWrapping(True)  # Allow wrapping from 180 to -180
+            angle_spinbox.valueChanged.connect(
+                lambda value, key=robot_key: self._on_angle_spinbox_changed(
+                    key, value)
+            )
+            position_layout.addWidget(angle_spinbox, row, 3)
+
             # Store spinboxes for later updates
-            self.robot_spinboxes[robot_key] = {'x': x_spinbox, 'y': y_spinbox}
+            self.robot_spinboxes[robot_key] = {'x': x_spinbox, 'y': y_spinbox, 'angle': angle_spinbox}
 
         position_group.setLayout(position_layout)
         main_layout.addWidget(position_group, 0)  # stretch=0, fixed size
@@ -358,10 +437,13 @@ class FakeLocationWidget(QWidget):
             pos = positions[robot_key]
             spinboxes['x'].blockSignals(True)
             spinboxes['y'].blockSignals(True)
+            spinboxes['angle'].blockSignals(True)
             spinboxes['x'].setValue(pos['x'])
             spinboxes['y'].setValue(pos['y'])
+            spinboxes['angle'].setValue(pos['angle'])
             spinboxes['x'].blockSignals(False)
             spinboxes['y'].blockSignals(False)
+            spinboxes['angle'].blockSignals(False)
 
     def _on_x_spinbox_changed(self, robot_key, value):
         """Handle X spinbox value change"""
@@ -371,6 +453,11 @@ class FakeLocationWidget(QWidget):
     def _on_y_spinbox_changed(self, robot_key, value):
         """Handle Y spinbox value change"""
         self.map_widget.robot_positions[robot_key]['y'] = value
+        self.map_widget.update()
+
+    def _on_angle_spinbox_changed(self, robot_key, value):
+        """Handle angle spinbox value change"""
+        self.map_widget.robot_positions[robot_key]['angle'] = value
         self.map_widget.update()
 
     def get_topic_prefix(self):
@@ -405,7 +492,7 @@ class FakeLocationWidget(QWidget):
         return {
             'x': current_pos['x'],
             'y': current_pos['y'],
-            'angle': 0.0  # TODO: Could add angle control if needed
+            'angle': math.radians(current_pos['angle'])  # Convert degrees to radians
         }
 
     def get_ground_robot_position_data(self):

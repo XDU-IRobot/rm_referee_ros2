@@ -1,6 +1,6 @@
 # rm_referee_ros2
 
-RoboMaster 裁判系统的 ROS2 驱动，用于简化 ROS2 下和裁判系统的数据交互。
+本项目包含了一些在 ROS2 下开发 RM 的裁判系统必要的一些基建。
 
 仓库的分支/tag 对应官方发布的协议文件版本，带 `legacy-` 前缀的 tag 为 26 赛季“串口协议”改为“通信协议”之前的版本，不带 `legacy-` 前缀的 tag 为 26 赛季改版为“通信协议”之后的版本。例如：
 
@@ -10,7 +10,7 @@ RoboMaster 裁判系统的 ROS2 驱动，用于简化 ROS2 下和裁判系统的
 
 `main`分支为最新开发版本，可能包含不稳定的改动。
 
-## Build status
+## Build test matrix
 
 <table>
 <tr>
@@ -115,7 +115,9 @@ git clone --recursive https://github.com/XDU-IRobot/rm_referee_ros2.git
 
 2. 向哨兵机器人发送所有己方地面机器人位置的数据。
 
-为了方便利用这些信息，本项目包含了一个 `tf_publisher` 节点。它订阅 `rm_referee_msgs/RobotPos` 和 `rm_referee_msgs/GroundRobotPosition` 类型的话题，并将解析出的机器人位置发布到 tf 上，方便在 RViz 等工具中进行可视化。
+为了方便利用这些信息，本项目包含一个 `tf_publisher` 节点。它订阅 `rm_referee_msgs/RobotPos` 和 `rm_referee_msgs/GroundRobotPosition` 类型的话题，并将其中的机器人位置信息发布到 tf 上：
+
+![tf_publisher](docs/tf_publisher.jpg)
 
 具体的，节点会发布以下变换：
 
@@ -124,6 +126,10 @@ git clone --recursive https://github.com/XDU-IRobot/rm_referee_ros2.git
 - `<root_frame_id>` -> `<child_frame_prefix>engineer`：己方工程机器人位置。
 - `<root_frame_id>` -> `<child_frame_prefix>standard_3`：己方步兵 3 号机器人位置。
 - `<root_frame_id>` -> `<child_frame_prefix>standard_4`：己方步兵 4 号机器人位置。
+
+> [!NOTE]  
+> 根据裁判系统协议定义，只有“本机器人位置”(`rm_referee_msgs/RobotPos`)消息包含朝向信息。
+> TF Publisher 对此的处理方式是，`map->robot_self` 这个变换包含朝向，其他变换无朝向信息（即朝向为 0）。
 
 同理，复制一份`rm_referee/launch/tf_publisher.launch.py`到自己的项目里，按需修改参数然后运行即可。可供配置的参数如下表：
 
@@ -136,6 +142,6 @@ git clone --recursive https://github.com/XDU-IRobot/rm_referee_ros2.git
 
 ## Mock
 
-`rm_referee_mock`包里提供了一些 Mock 组件，可以模拟裁判系统的数据发送行为，方便在没有真实裁判系统的情况下进行开发和测试。
+`rm_referee_mock`包里提供了一些 Mock 组件，用来模拟裁判系统的数据发送行为，方便在没有真实裁判系统或者不便搭建环境的情况下进行开发和测试。
 
-具体的使用方法请参考 [`rm_referee_mock/README.md`](rm_referee_mock/README.md)。
+使用方法参见 [`rm_referee_mock/README.md`](rm_referee_mock/README.md)。
