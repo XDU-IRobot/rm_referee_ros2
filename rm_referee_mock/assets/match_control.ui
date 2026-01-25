@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>691</width>
-    <height>551</height>
+    <width>780</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -25,12 +25,6 @@
    <property name="editable">
     <bool>false</bool>
    </property>
-   <property name="currentText">
-    <string/>
-   </property>
-   <property name="placeholderText">
-    <string/>
-   </property>
   </widget>
   <widget class="QLabel" name="label">
    <property name="geometry">
@@ -45,6 +39,7 @@
     <string>比赛类型</string>
    </property>
   </widget>
+
   <widget class="QGroupBox" name="groupBox_2">
    <property name="geometry">
     <rect>
@@ -219,80 +214,7 @@
     </property>
    </widget>
   </widget>
-  <widget class="QComboBox" name="comboBox_game_stage">
-   <property name="geometry">
-    <rect>
-     <x>500</x>
-     <y>430</y>
-     <width>131</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="editable">
-    <bool>false</bool>
-   </property>
-   <property name="currentText">
-    <string/>
-   </property>
-   <property name="placeholderText">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_13">
-   <property name="geometry">
-    <rect>
-     <x>430</x>
-     <y>430</y>
-     <width>91</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>比赛阶段</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="lineEdit_time">
-   <property name="geometry">
-    <rect>
-     <x>500</x>
-     <y>480</y>
-     <width>51</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>0:00</string>
-   </property>
-   <property name="clearButtonEnabled">
-    <bool>false</bool>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_14">
-   <property name="geometry">
-    <rect>
-     <x>430</x>
-     <y>480</y>
-     <width>66</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Time</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_15">
-   <property name="geometry">
-    <rect>
-     <x>560</x>
-     <y>480</y>
-     <width>66</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>/ 7:00</string>
-   </property>
-  </widget>
+
   <widget class="QGroupBox" name="groupBox">
    <property name="geometry">
     <rect>
@@ -353,15 +275,6 @@
       <height>31</height>
      </rect>
     </property>
-    <property name="editable">
-     <bool>false</bool>
-    </property>
-    <property name="currentText">
-     <string/>
-    </property>
-    <property name="placeholderText">
-     <string/>
-    </property>
    </widget>
    <widget class="QLabel" name="label_2">
     <property name="geometry">
@@ -371,9 +284,6 @@
       <width>66</width>
       <height>31</height>
      </rect>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
     </property>
     <property name="text">
      <string>小能量机关</string>
@@ -388,9 +298,6 @@
       <height>31</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
     <property name="text">
      <string>大能量机关</string>
     </property>
@@ -404,15 +311,6 @@
       <height>31</height>
      </rect>
     </property>
-    <property name="editable">
-     <bool>false</bool>
-    </property>
-    <property name="currentText">
-     <string/>
-    </property>
-    <property name="placeholderText">
-     <string/>
-    </property>
    </widget>
    <widget class="QLabel" name="label_11">
     <property name="geometry">
@@ -422,9 +320,6 @@
       <width>81</width>
       <height>31</height>
      </rect>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
     </property>
     <property name="text">
      <string>己方中央高地</string>
@@ -438,15 +333,6 @@
       <width>81</width>
       <height>31</height>
      </rect>
-    </property>
-    <property name="editable">
-     <bool>false</bool>
-    </property>
-    <property name="currentText">
-     <string/>
-    </property>
-    <property name="placeholderText">
-     <string/>
     </property>
    </widget>
    <widget class="QCheckBox" name="checkBox_4">
@@ -471,15 +357,6 @@
       <height>31</height>
      </rect>
     </property>
-    <property name="editable">
-     <bool>false</bool>
-    </property>
-    <property name="currentText">
-     <string/>
-    </property>
-    <property name="placeholderText">
-     <string/>
-    </property>
    </widget>
    <widget class="QLabel" name="label_12">
     <property name="geometry">
@@ -489,9 +366,6 @@
       <width>151</width>
       <height>31</height>
      </rect>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
     </property>
     <property name="text">
      <string>对方飞镖最后一次击中</string>
@@ -508,9 +382,6 @@
     </property>
     <property name="text">
      <string>0:00</string>
-    </property>
-    <property name="clearButtonEnabled">
-     <bool>false</bool>
     </property>
    </widget>
    <widget class="QLabel" name="label_16">
@@ -535,9 +406,6 @@
       <height>31</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
     <property name="text">
      <string>中心增益点</string>
     </property>
@@ -551,15 +419,6 @@
       <height>31</height>
      </rect>
     </property>
-    <property name="editable">
-     <bool>false</bool>
-    </property>
-    <property name="currentText">
-     <string/>
-    </property>
-    <property name="placeholderText">
-     <string/>
-    </property>
    </widget>
    <widget class="QLabel" name="label_18">
     <property name="geometry">
@@ -569,9 +428,6 @@
       <width>91</width>
       <height>31</height>
      </rect>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
     </property>
     <property name="text">
      <string>己方堡垒增益点</string>
@@ -586,15 +442,6 @@
       <height>31</height>
      </rect>
     </property>
-    <property name="editable">
-     <bool>false</bool>
-    </property>
-    <property name="currentText">
-     <string/>
-    </property>
-    <property name="placeholderText">
-     <string/>
-    </property>
    </widget>
    <widget class="QLabel" name="label_19">
     <property name="geometry">
@@ -604,9 +451,6 @@
       <width>111</width>
       <height>31</height>
      </rect>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
     </property>
     <property name="text">
      <string>己方前哨站增益点</string>
@@ -620,15 +464,6 @@
       <width>81</width>
       <height>31</height>
      </rect>
-    </property>
-    <property name="editable">
-     <bool>false</bool>
-    </property>
-    <property name="currentText">
-     <string/>
-    </property>
-    <property name="placeholderText">
-     <string/>
     </property>
    </widget>
    <widget class="QCheckBox" name="checkBox_base_buff">
@@ -644,6 +479,75 @@
      <string>己方基地增益点</string>
     </property>
    </widget>
+  </widget>
+
+  <widget class="QComboBox" name="comboBox_game_stage">
+   <property name="geometry">
+    <rect>
+     <x>500</x>
+     <y>430</y>
+     <width>131</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="editable">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_13">
+   <property name="geometry">
+    <rect>
+     <x>430</x>
+     <y>430</y>
+     <width>91</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>比赛阶段</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_time">
+   <property name="geometry">
+    <rect>
+     <x>500</x>
+     <y>480</y>
+     <width>51</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>0:00</string>
+   </property>
+   <property name="readOnly">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_14">
+   <property name="geometry">
+    <rect>
+     <x>430</x>
+     <y>480</y>
+     <width>66</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Time</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_15">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>480</y>
+     <width>66</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>/ 7:00</string>
+   </property>
   </widget>
   <widget class="QPushButton" name="pushButton_playpause">
    <property name="geometry">
@@ -668,7 +572,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>/rm_referee/mock</string>
+    <string>/rm_referee</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_20">
@@ -680,13 +584,144 @@
      <height>31</height>
     </rect>
    </property>
-   <property name="frameShape">
-    <enum>QFrame::NoFrame</enum>
-   </property>
    <property name="text">
     <string>Topic prefix</string>
    </property>
   </widget>
+
+  <widget class="QGroupBox" name="groupBox_robot_status">
+   <property name="geometry">
+    <rect>
+     <x>650</x>
+     <y>20</y>
+     <width>120</width>
+     <height>120</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>RobotStatus</string>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout_rs">
+    <item>
+     <widget class="QLabel" name="label_ammo">
+      <property name="text">
+       <string>17mm弹丸</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QSpinBox" name="spinBox_ammo">
+      <property name="maximum">
+       <number>500</number>
+      </property>
+      <property name="value">
+       <number>300</number>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="label_robot_id">
+      <property name="text">
+       <string>Robot ID</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QSpinBox" name="spinBox_robot_id">
+      <property name="maximum">
+       <number>200</number>
+      </property>
+      <property name="value">
+       <number>7</number>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+
+  <widget class="QGroupBox" name="groupBox_hurt">
+   <property name="geometry">
+    <rect>
+     <x>650</x>
+     <y>150</y>
+     <width>120</width>
+     <height>120</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>HurtData</string>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout_hurt">
+     <item>
+      <widget class="QLabel" name="label_armor">
+       <property name="text">
+        <string>装甲板ID</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="spinBox_hurt_armor_id">
+       <property name="maximum">
+        <number>4</number>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btn_send_hurt">
+       <property name="text">
+        <string>发送伤害</string>
+       </property>
+      </widget>
+     </item>
+   </layout>
+  </widget>
+
+  <widget class="QGroupBox" name="groupBox_service_echo">
+   <property name="geometry">
+    <rect>
+     <x>650</x>
+     <y>280</y>
+     <width>120</width>
+     <height>120</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>SentryInfo</string>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout_echo">
+    <item>
+     <widget class="QLabel" name="label_echo_title">
+      <property name="text">
+       <string>当前指令:</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="label_sentry_mode">
+      <property name="text">
+       <string>Mode: -</string>
+      </property>
+      <property name="styleSheet">
+       <string>color: blue; font-weight: bold;</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QCheckBox" name="checkBox_can_activate_rune">
+      <property name="text">
+       <string>视觉:可打符</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+      <property name="toolTip">
+       <string>模拟视觉识别到能量机关，允许开火</string>
+      </property>
+     </widget>
+    </item>
+    </layout>
+  </widget>
+
  </widget>
  <resources/>
  <connections/>

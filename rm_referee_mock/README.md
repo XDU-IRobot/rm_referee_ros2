@@ -41,5 +41,12 @@
 - `0x0001` `rm_referee_msgs/GameStatus`：比赛状态
 - `0x0003` `rm_referee_msgs/GameRobotHP`：己方机器人血量
 - `0x0101` `rm_referee_msgs/EventData`：场地事件数据
+- `0x020D` `rm_referee_msgs/Sentryinfo`:哨兵兑换信息
+- `0x0201` `rm_referee_msgs/RobotStatus`:本机器人状态
+- `0x0208` `rm_referee_msgs/ProgectileAllowance`允许发弹量和剩余金币
+- `0x0206` `rm_referee_msgs/HurtData`:扣血信息
+
+可以收到的发送的数据：
+- 目前只能解析哨兵发送的0x0120部分数据
 
 如果有需要，可以扩展更多比赛状态的控制项。
